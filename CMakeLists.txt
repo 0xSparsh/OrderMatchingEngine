@@ -2,22 +2,29 @@ cmake_minimum_required(VERSION 3.28)
 
 project(OrderMatchingEngine LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+# C++ standard
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Enable optimations for release builds
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-add_compile_options("-Wall" "-Wextra" "-pedantic")
+# Compiler warnings and optimizations
+add_compile_options(-Wall -Wextra -pedantic)
 
-# Source files
-file(GLOB_RECURSE SOURCES src/*.cpp)
-file(GLOB_RECURSE HEADERS include/*.h)
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_compile_options(-O3)
+endif()
 
 # Include directories
-include_directories(include)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# Add core source file libraries
-add_library(core STATIC ${SOURCES})
+# Source files
+file(GLOB_RECURSE SOURCES 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
+)
 
-target_include_directories(core PUBLIC ${CMAKE_SOURCE_DIR}/include)
+# Create executable
+add_executable(OrderMatchingEngine ${SOURCES})
+
+set_target_properties(OrderMatchingEngine PROPERTIES 
+    OUTPUT_NAME "order_matching_engine"
+)
