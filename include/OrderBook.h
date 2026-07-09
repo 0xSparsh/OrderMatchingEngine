@@ -84,7 +84,39 @@ public:
     // Print the entire orderbook
     void printBook() const
     {
+        std::cout << "========== ORDER BOOK ==========\n";
 
+        std::cout << "---------- BIDS ----------\n";
+        
+        for (const auto& [price, orders] : _bids)
+        {
+            std::cout << "Price: " << price << '\n';
+
+            for (const auto& order : orders)
+            {
+                std::cout 
+                    << "Timestamp: "    << order.timestamp 
+                    << "ID: "           << order.orderId
+                    << "Qty: "          << order.quantity
+                    <<'\n';
+            }
+        }
+
+        std::cout << "---------- ASKS ----------\n";
+
+        for (const auto& [price, orders] : _asks)
+        {
+            std::cout << "Price: " << price << '\n';
+            
+            for (const auto& order : orders)
+            {
+                std::cout 
+                    << "Timestamp: "    << order.timestamp 
+                    << "ID: "           << order.orderId
+                    << "Qty: "          << order.quantity
+                    <<'\n';
+            }
+        }
     }
 
 private:
