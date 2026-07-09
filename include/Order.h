@@ -12,8 +12,10 @@ struct Order
 {
     Timestamp timestamp;
     OrderId orderId;
+
     Type type;
     Side side;
+    
     Price price;
     Quantity quantity;
 };
