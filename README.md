@@ -1,4 +1,4 @@
-Low Latency Matching Engine
+## Low Latency Matching Engine
 
 A C++ project for learning how financial trading systems work.
 
