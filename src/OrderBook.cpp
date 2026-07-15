@@ -5,6 +5,11 @@ bool OrderBook::addOrder(const Order& order)
 {
     if (order.type == Type::New)
     {
+        return cancelOrder(order.orderId);
+    }
+
+    if (order.type == Type::New)
+    {
         if (order.quantity == 0 || order.price <= 0) return false;
         if (_lookup.find(order.orderId) != _lookup.end()) return false;
 
