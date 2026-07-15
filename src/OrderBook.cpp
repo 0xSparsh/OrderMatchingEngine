@@ -3,7 +3,7 @@
 
 bool OrderBook::addOrder(const Order& order)
 {
-    if (order.type == Type::New)
+    if (order.type == Type::Cancel)
     {
         return cancelOrder(order.orderId);
     }
