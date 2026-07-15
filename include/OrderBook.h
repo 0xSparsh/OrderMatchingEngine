@@ -8,11 +8,21 @@
 class OrderBook
 {
 public:
-    OrderBook();
+    OrderBook() = default;
 
+    // Delete copy constructors
+    OrderBook(const OrderBook&) = delete;
+    OrderBook& operator=(const OrderBook&) = delete;
+
+    // Default move constructors
+    OrderBook(OrderBook&&) = default;
+    OrderBook& operator=(OrderBook&&) = default;
+
+    // Add orders to the Orderbook
     bool addOrder(const Order& order);
+
+    // Cancel orders 
     bool cancelOrder(OrderId orderId);
-    void printBook() const;
 
 private:
     std::map<Price, std::list<Order>, std::greater<Price>> _bids;

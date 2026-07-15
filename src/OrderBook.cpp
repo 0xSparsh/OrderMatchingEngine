@@ -1,13 +1,16 @@
 #include "OrderBook.h"
 #include <iostream>
 
-OrderBook::OrderBook() = default;
-
 bool OrderBook::addOrder(const Order& order)
 {
     if (order.type == Type::Cancel)
     {
         return cancelOrder(order.orderId);
+    }
+
+    if (order.type == Type::New)
+    {
+        if (order.quantity == 0 || order.price <= 0) return false;
     }
 
     if (order.side == Side::Buy)
@@ -64,41 +67,4 @@ bool OrderBook::cancelOrder(OrderId orderId)
 
     _lookup.erase(it);
     return true;
-}
-
-void OrderBook::printBook() const
-{
-    std::cout << "========== ORDER BOOK ==========\n";
-
-    std::cout << "---------- BIDS ----------\n";
-    
-    for (const auto& [price, orders] : _bids)
-    {
-        std::cout << "Price: " << price << '\n';
-
-        for (const auto& order : orders)
-        {
-            std::cout 
-                << "Timestamp: "    << order.timestamp 
-                << "ID: "           << order.orderId
-                << "Qty: "          << order.quantity
-                <<'\n';
-        }
-    }
-
-    std::cout << "---------- ASKS ----------\n";
-
-    for (const auto& [price, orders] : _asks)
-    {
-        std::cout << "Price: " << price << '\n';
-        
-        for (const auto& order : orders)
-        {
-            std::cout 
-                << "Timestamp: "    << order.timestamp 
-                << "ID: "           << order.orderId
-                << "Qty: "          << order.quantity
-                <<'\n';
-        }
-    }
 }
