@@ -16,8 +16,10 @@ struct Order
     Timestamp timestamp;
     OrderId orderId;
 
-    Type type;
+    OrderAction orderAction;
     Side side;
+    TimeInForce tif{TimeInForce::Day};
+    OrderType orderType;
     
     Price price;
     Quantity quantity;

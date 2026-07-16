@@ -6,9 +6,21 @@ enum class Side
     Sell
 };
 
-enum class Type
+enum class OrderAction
 {
     New,
     Cancel
 };
 
+enum class TimeInForce
+{
+    Day,
+    IOC, // Immediate-or-Cancel
+    FOK // Fill-or-Kill
+};
+
+enum class OrderType
+{
+    Limit,
+    Market
+};

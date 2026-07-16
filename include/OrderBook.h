@@ -17,8 +17,8 @@ public:
     OrderBook& operator=(const OrderBook&) = delete;
 
     // Default move constructors
-    OrderBook(OrderBook&&) = default;
-    OrderBook& operator=(OrderBook&&) = default;
+    OrderBook(OrderBook&&) noexcept = default;
+    OrderBook& operator=(OrderBook&&) noexcept = default;
 
     // Add orders to the Orderbook
     bool addOrder(const Order& order);
@@ -27,7 +27,7 @@ public:
     bool cancelOrder(OrderId orderId);
 
     // Getter function for trades
-    const std::vector<Trade> getTrade() const { return _trades; }
+    const std::vector<Trade>& getTrade() const { return _trades; }
 
 private:
     std::map<Price, std::list<Order>, std::greater<Price>> _bids;
@@ -36,4 +36,5 @@ private:
     std::vector<Trade> _trades;
 
     void matchOrder(Order& aggressive);
+    bool canFillCompletely(const Order& order) const;
 };

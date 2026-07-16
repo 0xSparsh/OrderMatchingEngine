@@ -11,6 +11,10 @@ public:
     // Process an order by matching it to correct book
     bool processOrder(const Order& order);
 
+    // Get the book
+    OrderBook& getBook(StockLocate locate);
+    const OrderBook& getBook(StockLocate locate) const;
+
 private:
     // vector of OrderBook 
     // The max size will be 2^16
