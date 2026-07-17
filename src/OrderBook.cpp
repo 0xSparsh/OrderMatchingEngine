@@ -12,7 +12,7 @@ bool OrderBook::addOrder(const Order& order)
     {
         if (order.quantity == 0) return false;
 
-        if(order.orderType == OrderType::Limit && order.price == 0) return false;
+        if(order.orderType == OrderType::Limit && order.price == Price(0)) return false;
 
         if (_lookup.find(order.orderId) != _lookup.end()) return false;
 
@@ -36,9 +36,9 @@ bool OrderBook::addOrder(const Order& order)
                 _lookup[working.orderId] = std::prev(level.end());
             }
             else {
-                auto& level = _bids[working.price];
+                auto& level = _asks[working.price];
                 level.push_back(working);
-                _lookup[working.price] = std::prev(level.end());
+                _lookup[working.orderId] = std::prev(level.end());
             }
         }
     }
